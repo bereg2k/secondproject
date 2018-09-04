@@ -1,4 +1,6 @@
 import java.util.Scanner;
+import java.lang.Math;
+
 //import java.util.concurrent.ThreadLocalRandom;
 
 /**
@@ -42,12 +44,14 @@ public class Base {
 
                 System.out.println("Array-20 stub");
 
-                int[] randomNumberArray = {1, 2, 3, 4, 5};
-
-                for (int i : randomNumberArray) {
-                    System.out.print(i + " ");
+                int randomNumberArray[] = new int[20];
+                for (int i = 0; i < randomNumberArray.length; i++) {
+                    randomNumberArray[i] = getRandomNumber(-10,10);
+                    System.out.print(randomNumberArray[i] + " ");
                 }
 
+                System.out.println();
+                System.out.println(randomNumberArray[4]);
                 System.out.println();
                 /*If user enters "y", then program goes back to main menu.
                 If user enters "n", then program ends its execution.
@@ -101,6 +105,10 @@ public class Base {
         scanner.close();
     }
 
+    private static int getRandomNumber(int minBound, int maxBound) {
+        return (int) (Math.random() * ((maxBound - minBound) + 1)) + minBound;
+    }
 }
+
 
 
