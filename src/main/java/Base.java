@@ -4,9 +4,9 @@ import java.lang.Math;
 //import java.util.concurrent.ThreadLocalRandom;
 
 /**
- * 1. Array-20.
- * Declaring an array of 20 elements.
- * Initialize it with random integer numbers from -10 to 10.
+ * 1. Array's Elements Swapping.
+ * Declaring an array of an entered number of elements.
+ * Initialize it with random integer numbers from the entered range.
  * Task: Find max negative and minimal positive elements and swap them.
  * Print the initial and resulting array on the screen.
  * <p>
@@ -33,35 +33,96 @@ public class Base {
 
         while (startAgain) {
 
-            //Main menu of the program. User can choose to open Calculator, Find max element in array or Exit.
-            System.out.println();
-            System.out.println("Hi there! This is the MAIN MENU. What would you like to work with?");
-            System.out.print("Enter '1' for Array-20, '2' for Packing the Gift, '3' for Exit: ");
+            //Main menu of the program. User can choose to open Array's Elements Swapping, Packing the Gift or Exit.
+            System.out.println("\nHi there! This is the MAIN MENU. What would you like to work with?");
+            System.out.print("Enter '1' for Array Elements Swapping, '2' for Packing the Gift, '3' for Exit: ");
             int mainChoice = scanner.nextInt();
 
-            //This branch is for accessing Array-20 from the main menu.
+            //This branch is for accessing Array's Elements Swapping from the main menu.
             if (mainChoice == 1) {
-
-                System.out.println("Array-20 stub");
-
-                int randomNumberArray[] = new int[20];
-                for (int i = 0; i < randomNumberArray.length; i++) {
-                    randomNumberArray[i] = getRandomNumber(-10,10);
-                    System.out.print(randomNumberArray[i] + " ");
+                System.out.println("This is 'Array's Elements Swapping' functionality.");
+                System.out.print("Enter array's length: ");
+                int arrayLength = scanner.nextInt();
+                int randomNumberArray[] = new int[arrayLength];
+                System.out.print("Enter lower bound of array: ");
+                int minBound = scanner.nextInt();
+                System.out.print("Enter upper bound of array: ");
+                int maxBound = scanner.nextInt();
+                if (arrayLength > maxBound - minBound + 1) {
+                    System.err.println("Incompatible parameters of the array!");
+                    System.exit(0);
                 }
 
+                System.out.println("\nHere's your original array: ");
+                for (int i = 0; i < arrayLength; i++) {
+                    randomNumberArray[i] = getRandomNumber(minBound, maxBound);
+                    for (int j = i; j >= 0; j--) {
+                        if (randomNumberArray[j] == randomNumberArray[i] && i != j) {
+                            randomNumberArray[i] = getRandomNumber(minBound, maxBound);
+                            j = i;
+                        }
+                    }
+                    System.out.print(randomNumberArray[i] + " ");
+                }
                 System.out.println();
-                System.out.println(randomNumberArray[4]);
-                System.out.println();
+
+                int maxNegative = randomNumberArray[0];
+                int indexMaxNegative = 0;
+                boolean isMaxNegativePresent = false;
+                int minPositive = randomNumberArray[0];
+                int indexMinPositive = 0;
+                boolean isMinPositivePresent = false;
+
+                for (int k = 0; k < arrayLength; k++) {
+                    if (randomNumberArray[k] > 0) {
+                        if (randomNumberArray[k] < minPositive || minPositive <= 0 && randomNumberArray[k] > minPositive) {
+                            minPositive = randomNumberArray[k];
+                            indexMinPositive = k;
+                        }
+                        isMinPositivePresent = true;
+                    }
+                }
+
+                for (int l = 0; l < arrayLength; l++) {
+                    if (randomNumberArray[l] < 0) {
+                        if (randomNumberArray[l] > maxNegative || maxNegative >= 0 && randomNumberArray[l] < maxNegative) {
+                            maxNegative = randomNumberArray[l];
+                            indexMaxNegative = l;
+                        }
+                        isMaxNegativePresent = true;
+                    }
+                }
+
+                if (!isMinPositivePresent) {
+                    System.err.println("There're no positive elements in the array! Please try again!");
+                } else if (!isMaxNegativePresent) {
+                    System.err.println("There're no negative elements in the array! Please try again!");
+                } else {
+                    System.out.println("minPositive = " + minPositive + ";");
+                    System.out.println("indexMinPositive = " + indexMinPositive + ";");
+
+                    System.out.println("maxNegative = " + maxNegative + ";");
+                    System.out.println("indexMaxNegative = " + indexMaxNegative + ";");
+
+                    int bufferForArray = randomNumberArray[indexMinPositive];
+                    randomNumberArray[indexMinPositive] = randomNumberArray[indexMaxNegative];
+                    randomNumberArray[indexMaxNegative] = bufferForArray;
+
+                    System.out.println("\nHere's your resulted array (after swapping maxNegative and minPositive): ");
+
+                    for (int m = 0; m < arrayLength; m++)
+                        System.out.print(randomNumberArray[m] + " ");
+                }
+
                 /*If user enters "y", then program goes back to main menu.
                 If user enters "n", then program ends its execution.
                 Otherwise, the program terminates with an error.*/
-                System.out.print("Would you like to start again [y/n]?: ");
+                System.out.print("\n\nWould you like to start again [y/n]?: ");
                 exit = scanner.next();
                 if (exit.equals("y")) {
                     startAgain = true;
                 } else if (exit.equals("n")) {
-                    System.out.println("Thank you for using our Array-20 tool! Bye!");
+                    System.out.println("Thank you for using our 'Array's Elements Swapping' tool! Bye!");
                     startAgain = false;
                 } else {
                     System.err.println("Invalid input! Program aborted!");
@@ -72,12 +133,12 @@ public class Base {
 
             //This branch is for Packing the Gift.
             else if (mainChoice == 2) {
-                System.out.println("Packing the Gift. STUB");
+                System.out.print("\nPacking the Gift. STUB");
 
                 /*If user enters "y", then program goes back to main menu.
                 If user enters "n", then program ends its execution.
                 Otherwise, the program terminates with an error.*/
-                System.out.print("Would you like to start again [y/n]?: ");
+                System.out.print("\n\nWould you like to start again [y/n]?: ");
                 exit = scanner.next();
                 if (exit.equals("y")) {
                     startAgain = true;
@@ -92,13 +153,13 @@ public class Base {
 
             //This branch is for quitting the program from the main menu.
             else if (mainChoice == 3) {
-                System.out.println("Thank you! Bye!");
+                System.out.println("\nThank you! Bye!");
                 startAgain = false;
             }
 
             //This branch is for handling invalid input from the main menu.
             else {
-                System.err.println("Invalid number entered! Please try again!");
+                System.err.println("\nInvalid number entered! Please try again!");
                 startAgain = true;
             }
         }
