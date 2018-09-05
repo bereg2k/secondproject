@@ -29,7 +29,6 @@ class ArraySwap {
 
         System.out.println("\nHere's your original array[" + arrayLength + "]: ");
         arrayPrint(randomNumberArray); //printing new array after initializing
-
         System.out.println();
 
         //swapping the biggest negative and the smallest positive element in the array
@@ -78,7 +77,7 @@ class ArraySwap {
      * This is a method for swapping 2 elements in the array -- the biggest negative and the smallest positive ones.
      * The method makes sure that there's at least 1 positive AND 1 negative element in the array to choose from.
      * If either negative or positive elements are not present in the array, the method throws an appropriate error.
-     * In this case there would be NO printing of the resulted array (hence, return boolean variable).
+     * In this case there would be NO swapping (and unprocessed array won't be printed).
      *
      * @param arrayToSwapElements array for swapping elements in it.
      * @return the flag to let the main module know to print the resulted array or not
