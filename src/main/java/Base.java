@@ -44,8 +44,11 @@ public class Base {
 
             //This branch is for Packing the Gift.
             else if (mainChoice == 2) {
+                Gift.main(); //calling main method of Gift class
 
-                System.out.println("\nPacking the Gift. STUB");
+                System.out.println();
+
+                //calling method to start again and return a flag value for "while"-cycle
                 startAgain = startAgainFunction(scanner, 'g');
             }
 
@@ -64,6 +67,13 @@ public class Base {
         scanner.close();
     }
 
+    /**
+     * This method called at the end of iteration of main functionality (after working with Array or packing the Gift).
+     * It lets the user to use go back to main menu or quit the program right away.
+     * @param scanner console input parameter for user's decision
+     * @param flagForExit flag variable for appropriate "good-bye" message (depends on the user's previous choice)
+     * @return boolean value for main method, so that the program could go back to main menu or quit.
+     */
     private static boolean startAgainFunction(Scanner scanner, char flagForExit) {
         /*If user enters "y", then program goes back to main menu.
         If user enters "n", then program ends its execution.

@@ -56,6 +56,7 @@ class ArraySwap {
 
     /**
      * This is a method for initializing an array with random integer numbers in the given range.
+     * This method specifically populates an array with UNIQUE numbers (hence, the second "for"-cycle).
      *
      * @param minBound         lower bound of the range
      * @param maxBound         upper bound of the range
@@ -126,6 +127,7 @@ class ArraySwap {
             System.out.println("The smallest positive element = array[" + indexMinPositive + "] = " + minPositive + ";");
             System.out.println("The biggest negative element = array[" + indexMaxNegative + "] = " + maxNegative + ";");
 
+            //this is the actual swapping, using a "buffer" variable.
             int bufferForArray = arrayToSwapElements[indexMinPositive];
             arrayToSwapElements[indexMinPositive] = arrayToSwapElements[indexMaxNegative];
             arrayToSwapElements[indexMaxNegative] = bufferForArray;
@@ -134,7 +136,7 @@ class ArraySwap {
     }
 
     /**
-     * This is the method for printing a given array.
+     * This is a method for printing a given array.
      *
      * @param arrayToPrint array for printing
      */
