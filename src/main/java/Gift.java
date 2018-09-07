@@ -8,6 +8,7 @@ import java.util.Scanner;
 /**
  * This is a separate class for Packing the Gift functionality.
  * Local method "main()" is called from the Base.java class to access this functionality.
+ * User can add a single item of each  type of sweets available (currently, 3 types).
  *
  * @author Oleg Berezhnoy
  */
@@ -15,6 +16,7 @@ class Gift {
     static void main() {
         Scanner scanner = new Scanner(System.in);
 
+        //creating class objects for available types of sweets -- chocolate, jelly beans, lollipops
         Chocolate chocolate1 = new Chocolate("Alpen Gold Milky", 100, 45.99, "milk");
         Chocolate chocolate2 = new Chocolate("Alpen Gold Cappuccino", 100, 68.99, "milk");
         Chocolate chocolate3 = new Chocolate("Lindt 99%", 100, 155.50, "dark");
@@ -28,9 +30,11 @@ class Gift {
         Lollipop lolliBubble = new Lollipop("Bubble Dinger Vanilla", 10.45, 20.50, "S");
         Lollipop lolliTop = new Lollipop("TOP of the POP", 15.99, 25.99, "M");
 
+        //creating additional arrays for respective sweets
         Sweets chocolatePackage[] = new Sweets[]{chocolate1, chocolate2, chocolate3, chocolate4, chocolate5};
         Sweets jellybeanPackage[] = new Sweets[]{jellySB, jellyBanana};
         Sweets lollipopPackage[] = new Sweets[]{lolliChup, lolliBubble, lolliTop};
+        //creating variables to store user's choice of respective sweets
         int chocolateChoice;
         int jellyBeanChoice;
         int lollipopChoice;
@@ -53,8 +57,9 @@ class Gift {
         System.out.print("Choose the lollipops you want to add to the gift (enter its number): ");
         lollipopChoice = scanner.nextInt();
 
-        Sweets gift[] = new Sweets[3];
+        Sweets gift[] = new Sweets[3]; //declaring target gift array for 3 elements, each for every type of sweets.
 
+        //adding chocolate element to gift box depending on the previous user's choice
         switch (chocolateChoice) {
             case 1: {
                 gift[0] = chocolate1;
@@ -82,6 +87,7 @@ class Gift {
             }
         }
 
+        //adding jelly beans element to gift box depending on the previous user's choice
         switch (jellyBeanChoice) {
             case 1: {
                 gift[1] = jellySB;
@@ -97,6 +103,7 @@ class Gift {
             }
         }
 
+        //adding lollipop element to gift box depending on the previous user's choice
         switch (lollipopChoice) {
             case 1: {
                 gift[2] = lolliChup;
@@ -116,14 +123,16 @@ class Gift {
             }
         }
 
+        //In case user chose non-existent product previously, the program throws an error and stops execution.
         if (gift[0] == null || gift[1] == null || gift[2] == null) {
             System.err.println("Invalid number of some sweets was entered! Program aborted!");
             System.exit(1);
         }
-
+        //printing formed gift box's contents
         System.out.println("\nThank you for your choice! Here's the contents of your gift:");
         printSweetsArray(gift);
 
+        //calling methods for calculating total weight and total price of resulting gift box
         System.out.printf("\nTotal weight of the gift is %.2f grams.", getGiftTotalWeight(gift));
         System.out.printf("\nTotal price of the gift is %.2f rubles.", getGiftTotalPrice(gift));
     }

@@ -21,6 +21,6 @@ public class Jellybean extends Sweets {
 
     @Override
     public String toString() {
-        return "Jellybean [" + super.toString() + ", flavour = " + flavour + "]";
+        return "Jelly bean [" + super.toString() + ", flavour = " + flavour + "]";
     }
 }

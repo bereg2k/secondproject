@@ -28,6 +28,7 @@ public abstract class Sweets {
 
     public void setName(String name) {
         this.name = name;
+
     }
 
     public void setWeight(double weight) {
