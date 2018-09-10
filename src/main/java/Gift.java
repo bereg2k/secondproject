@@ -34,102 +34,43 @@ class Gift {
         Sweets chocolatePackage[] = new Sweets[]{chocolate1, chocolate2, chocolate3, chocolate4, chocolate5};
         Sweets jellybeanPackage[] = new Sweets[]{jellySB, jellyBanana};
         Sweets lollipopPackage[] = new Sweets[]{lolliChup, lolliBubble, lolliTop};
-        //creating variables to store user's choice of respective sweets
-        int chocolateChoice;
-        int jellyBeanChoice;
-        int lollipopChoice;
 
         System.out.println("\nThis is 'Packing the Gift' functionality!\n");
+        System.out.print("Please enter the desired number of sweets in the gift box : ");
+        int giftSize = scanner.nextInt();
+        Sweets gift[] = new Sweets[giftSize];   //creating an array for a gift of entered size
 
+        //filling the gift box with various sweets. User chooses type and certain sweets by keyboard input.
         System.out.println("Let's first choose all the necessary sweets to add to the gift.");
-        System.out.println("\nHere's all the available chocolate bars:");
-        printSweetsArray(chocolatePackage);
-        System.out.print("Choose the chocolate you want to add to the gift (enter its number): ");
-        chocolateChoice = scanner.nextInt();
-
-        System.out.println("\nHere's all the available jelly beans:");
-        printSweetsArray(jellybeanPackage);
-        System.out.print("Choose the jelly beans you want to add to the gift (enter its number): ");
-        jellyBeanChoice = scanner.nextInt();
-
-        System.out.println("\nHere's all the available lollipops:");
-        printSweetsArray(lollipopPackage);
-        System.out.print("Choose the lollipops you want to add to the gift (enter its number): ");
-        lollipopChoice = scanner.nextInt();
-
-        Sweets gift[] = new Sweets[3]; //declaring target gift array for 3 elements, each for every type of sweets.
-
-        //adding chocolate element to gift box depending on the previous user's choice
-        switch (chocolateChoice) {
-            case 1: {
-                gift[0] = chocolate1;
-                break;
-            }
-            case 2: {
-                gift[0] = chocolate2;
-                break;
-            }
-            case 3: {
-                gift[0] = chocolate3;
-                break;
-            }
-            case 4: {
-                gift[0] = chocolate4;
-                break;
-            }
-            case 5: {
-                gift[0] = chocolate5;
-                break;
-            }
-            default: {
-                gift[0] = null;
-                break;
+        int choice;
+        for (int i = 0; i < giftSize; i++) {
+            System.out.print("Enter '1' to add chocolate, '2' to add jelly beans, or '3' to add lollipops: ");
+            choice = scanner.nextInt();
+            switch (choice) {
+                case 1:
+                    System.out.println("Choose the chocolate you want to add to the gift (enter its number): ");
+                    gift[i] = selectSweet(chocolatePackage);
+                    System.out.println("You have " + (giftSize - i - 1) + " more sweets to complete your gift box.\n");
+                    break;
+                case 2:
+                    System.out.println("Choose the jelly beans you want to add to the gift (enter its number): ");
+                    gift[i] = selectSweet(jellybeanPackage);
+                    System.out.println("You have " + (giftSize - i - 1) + " more sweets to complete your gift box.\n");
+                    break;
+                case 3:
+                    System.out.println("Choose the lollipops you want to add to the gift (enter its number): ");
+                    gift[i] = selectSweet(lollipopPackage);
+                    System.out.println("You have " + (giftSize - i - 1) + " more sweets to complete your gift box.\n");
+                    break;
+                default:
+                    System.out.println("Invalid number entered! Please try again!"); //invalid number entered handling
+                    i--;
+                    break;
             }
         }
 
-        //adding jelly beans element to gift box depending on the previous user's choice
-        switch (jellyBeanChoice) {
-            case 1: {
-                gift[1] = jellySB;
-                break;
-            }
-            case 2: {
-                gift[1] = jellyBanana;
-                break;
-            }
-            default: {
-                gift[1] = null;
-                break;
-            }
-        }
-
-        //adding lollipop element to gift box depending on the previous user's choice
-        switch (lollipopChoice) {
-            case 1: {
-                gift[2] = lolliChup;
-                break;
-            }
-            case 2: {
-                gift[2] = lolliBubble;
-                break;
-            }
-            case 3: {
-                gift[2] = lolliTop;
-                break;
-            }
-            default: {
-                gift[2] = null;
-                break;
-            }
-        }
-
-        //In case user chose non-existent product previously, the program throws an error and stops execution.
-        if (gift[0] == null || gift[1] == null || gift[2] == null) {
-            System.err.println("Invalid number of some sweets was entered! Program aborted!");
-            System.exit(1);
-        }
         //printing formed gift box's contents
-        System.out.println("\nThank you for your choice! Here's the contents of your gift:");
+        System.out.println("Thank you for your choice! Here's the contents of your gift:");
         printSweetsArray(gift);
 
         //calling methods for calculating total weight and total price of resulting gift box
@@ -139,6 +80,7 @@ class Gift {
 
     /**
      * This method calculates the total weight of the given gift box.
+     *
      * @param giftArray array of Sweets class consisting of various sweets
      * @return total weight value
      */
@@ -153,6 +95,7 @@ class Gift {
 
     /**
      * This method calculates the total price of the given gift box.
+     *
      * @param giftArray array of Sweets class consisting of various sweets
      * @return total price value
      */
@@ -168,11 +111,28 @@ class Gift {
     /**
      * This method prints a given array of Sweets class.
      * The printing adds numeric values to elements (starting with 1 instead of 0!).
+     *
      * @param sweetsArray array of Sweets class consisting of various sweets
      */
     private static void printSweetsArray(Sweets sweetsArray[]) {
         for (int i = 0; i < sweetsArray.length; i++) {
             System.out.println((i + 1) + ". " + sweetsArray[i].toString());
         }
+    }
+
+    /**
+     * This method selects a user's sweets of choice in the given package (chocolate, jelly beans or lollipops)
+     * @param sweetsArray chosen sweets package (chocolate, jelly beans or lollipops)
+     * @return the chosen piece of sweets
+     */
+    private static Sweets selectSweet(Sweets sweetsArray[]) {
+        printSweetsArray(sweetsArray);
+        Scanner scanner = new Scanner(System.in);
+        int sweetsChoice = scanner.nextInt();
+        while (sweetsChoice > sweetsArray.length || sweetsChoice <= 0) { //invalid input handling
+            System.out.println("The number is invalid! Please try again!");
+            sweetsChoice = scanner.nextInt();
+        }
+        return sweetsArray[sweetsChoice - 1]; //numbering on the screen starts with 1 (unlike in java array's logic)
     }
 }
